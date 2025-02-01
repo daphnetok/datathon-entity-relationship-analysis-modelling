@@ -1,0 +1,13 @@
+# Python cache files
+__pycache__/
+*.pyc
+
+# Jupyter Notebooks checkpoints
+.ipynb_checkpoints/
+
+# Dataset files
+data/raw/*.csv
+data/raw/*.xlsx
+
+# Environment files
+.venv/

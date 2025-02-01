@@ -1,0 +1,17 @@
+pre {
+    white-space: pre-wrap; /* Wraps text within the element */
+    word-wrap: break-word; /* Ensures long words don't overflow */
+    max-width: 100%; /* Prevents horizontal scrolling */
+    background-color: #f8f9fa; /* Light background */
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+img {
+    display: block;
+    margin: 20px auto; /* Centers the image */
+    max-width: 100%; /* Ensures responsiveness */
+    height: auto;
+}
+

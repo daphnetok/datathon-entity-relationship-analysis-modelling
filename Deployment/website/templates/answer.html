@@ -1,0 +1,23 @@
+{% extends "base.html" %} {% block title %}Answer{% endblock %} {% block content%}
+
+    {% if api_response %}
+        <h2>Summary:</h2>
+        <pre>{{ api_response }}</pre>
+    {% endif %}
+
+    {% if graph_img %}
+    <h2>Network Graph:</h2>
+    <img src="data:image/png;base64,{{ graph_img }}" alt="Graph">
+    {% endif %}
+
+    {% if entities_relationships %}
+        <h2>Overview:</h2>
+        <pre>{{ entities_relationships }}</pre>
+    {% endif %}
+
+    <form method="GET">
+        <div align="center">
+            <button type="submit" class="btn btn-primary">Resubmit Query</button>
+        </div>
+    </form>
+    {% endblock %}
