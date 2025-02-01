@@ -4,20 +4,19 @@ from .api_caller import *
 from .realtimechart import create_graph
 from .model import classifier
 
-# blueprint means that it has a bunch of routes and urls inside of it
 views = Blueprint('views', __name__)
 
-@views.route('/', methods=['GET', 'POST']) # decorator: whenever we go to this url, itll run home()
+@views.route('/', methods=['GET', 'POST'])
 def home():
     if request.method == 'POST':
         query = request.form.get('query')
 
-        # Handle empty query input
         if not query:
             flash('Query cannot be empty.', category='error')
             return render_template("query.html")
 
         try:
+            # Call ollama api to get summaries and graph
             query = request.form.get('query')
             api_response = call_api_summary(query)
             entities_relationships = call_api_entities(query)
@@ -38,7 +37,6 @@ def home():
                                     classification_label = classification_label)
         
         except Exception as e:
-            # Log the error and display an error message
             print(f"Error: {e}")
             flash('An error occurred while processing your request.', category='error')
             return render_template("query.html")

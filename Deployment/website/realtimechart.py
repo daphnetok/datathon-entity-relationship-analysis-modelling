@@ -6,9 +6,8 @@ import base64
 
 # The raw text containing both Entities and Relationships sections.
 def create_graph(data):
-    #########################
-    # 1. Extract Entities   #
-    #########################
+
+    # Extract Entities
 
     # Isolate the entities section: everything between "**Entities:**" and "**Relationships:**"
     entities_block_match = re.search(r'\*\*Entities:\*\*(.*?)\*\*Relationships:\*\*', data, re.DOTALL)
@@ -24,9 +23,7 @@ def create_graph(data):
     print("Entities:")
     print(entity_names)
 
-    #########################
-    # 2. Extract Relationships  #
-    #########################
+    # Extract Relationships
 
     # Isolate the relationships section (everything after "**Relationships:**")
     relationships_block_match = re.search(r'\*\*Relationships:\*\*(.*)', data, re.DOTALL)
@@ -54,11 +51,9 @@ def create_graph(data):
     for edge in edges:
         print(edge)
 
-    #########################
-    # 3. Create the Graph   #
-    #########################
+    # Create the Graph
 
-    # Create a graph. Use nx.DiGraph() if the relationships are directional.
+    # Create a graph
     G = nx.Graph()
 
     # Add all nodes (entities)
@@ -68,7 +63,7 @@ def create_graph(data):
     G.add_edges_from(edges)
 
     # Define a layout for the graph
-    pos = nx.spring_layout(G, seed=42)  # positions the nodes nicely
+    pos = nx.spring_layout(G, seed=42)
 
     # Draw the graph
     plt.figure(figsize=(12, 8))
@@ -78,9 +73,7 @@ def create_graph(data):
     plt.axis('off')
     plt.title("Entities and Relationships Network Graph")
 
-    #########################
-    # 4. Save and Return the Graph as a Base64 String  #
-    #########################
+    # Save and Return the Graph as a Base64 String
 
     # Save the plot to a BytesIO buffer in PNG format
     buffer = BytesIO()
