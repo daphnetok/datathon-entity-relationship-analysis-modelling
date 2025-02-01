@@ -2,16 +2,26 @@ import requests
 import json
 import pandas as pd
 import os
+import aiohttp
+import asyncio
 
-def call_api_entities(text):
-    # API endpoint
-    url = "http://localhost:11434/api/generate"
-    headers = {"Content-Type": "application/json"}
+API_URL = "http://localhost:11434/api/generate"
+HEADERS = {"Content-Type": "application/json"}
 
+async def async_call_api(url, payload):
+    """Asynchronous function to make API call."""
+    async with aiohttp.ClientSession() as session:
+        try:
+            async with session.post(url, headers=HEADERS, json=payload, timeout=30) as response:
+                response.raise_for_status()
+                data = await response.json()
+                return data.get("response", "No response")
+        except aiohttp.ClientError as e:
+            return f"API Error: {str(e)}"
+
+async def call_api_entities(text):
     # Define the API payload
-    data = {
-        "model": "llama3.2",
-        "prompt": f"""Identify the entities and the relationship between entities in the following text.
+    prompt = f"""Identify the entities and the relationship between entities in the following text.
         '{text}'
         Give me the response in this format. Give me as many entities and their relationships as possible. 
         **Entities:**
@@ -48,44 +58,12 @@ def call_api_entities(text):
             4. Federal labor law has relationships with:
                 * Starbucks - The law applies to employment practices in Starbucks' coffee shops, as seen in this case.
                 * National Labor Relations Board (NLRB) - The law is enforced by the NLRB, which made the ruling in this case.
-            """,
-        "stream": False
-    }
+            """
+    payload = {"model": "llama3.2", "prompt": prompt, "stream": False}
+    return await async_call_api(API_URL, payload)
 
-    # Make API request
-    try:
-        response = requests.post(url, headers=headers, data=json.dumps(data), timeout=30)
-        response.raise_for_status()
-        actual_response = response.json().get("response", "No response")
-        print("we got response")
-    except requests.exceptions.RequestException as e:
-        actual_response = f"API Error: {str(e)}"
-        print(f"API Error: {str(e)}")
-        
-    return actual_response
+async def call_api_summary(text):
 
-def call_api_summary(text):
-    # API endpoint
-    url = "http://localhost:11434/api/generate"
-    headers = {"Content-Type": "application/json"}
-
-    # Define the API payload
-    data = {
-        "model": "llama3.2",
-        "prompt": f"""Summarise the following text in one sentence.
-        '{text}'""",
-        "stream": False
-    }
-
-    # Make API request
-    try:
-        response = requests.post(url, headers=headers, data=json.dumps(data), timeout=30)
-        response.raise_for_status()
-        actual_response = response.json().get("response", "No response")
-        print("we got response")
-    except requests.exceptions.RequestException as e:
-        actual_response = f"API Error: {str(e)}"
-        print(f"API Error: {str(e)}")
-        
-    return actual_response
+    payload = {"model": "llama3.2", "prompt": f"Summarize the following text: '{text}'", "stream": False}
+    return await async_call_api(API_URL, payload)
 
