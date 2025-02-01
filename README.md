@@ -11,21 +11,34 @@ This project is focused on investigating Wikileaks and News excerpts, extracting
 
 ## Folder Structure
 datathon-entity-relationship-model
+├── Deployment
+│   └── website
+│       ├── models
+│       ├── static
+│       └── templates
 ├── data/
 │   ├── raw/
 │   ├── processed/
 │   └── output/
+├── notebooks/
 ├── src/
 │   ├── data_preprocessing/
 │   ├── model/
-│   ├── utils/
-├── notebooks/
-├── docs/
+│   └── utils/
+└── venv
+   ├── Include/
+   ├── Lib/
+   ├── Scripts/
+   └── share/
 
+- `Deployment/`: Contains Web Application (front-end & back-end) files and final ML model (pkl file).   
 - `data/`: Contains raw, processed, and output data files.
-- `src/`: Source code for data preprocessing, modeling, and utility functions.
 - `notebooks/`: Jupyter notebooks for exploration.
-- `docs/`: Documentation files.
+- `src/`: Source code for data preprocessing, modeling, and utility functions.
+- `venv/`: Virtual environment which contains all installed packages
+
+
+
 
 
 ## Contributing
