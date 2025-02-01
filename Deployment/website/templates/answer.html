@@ -1,5 +1,10 @@
 {% extends "base.html" %} {% block title %}Answer{% endblock %} {% block content%}
 
+    {% if classification_label %}
+        <h2>Classification:</h2>
+        <pre>{{ classification_label }}</pre>
+    {% endif %}
+
     {% if api_response %}
         <h2>Summary:</h2>
         <pre>{{ api_response }}</pre>
