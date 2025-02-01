@@ -3,7 +3,6 @@ import json
 from .api_caller import *
 from .realtimechart import create_graph
 from .model import classifier
-import asyncio
 
 # blueprint means that it has a bunch of routes and urls inside of it
 views = Blueprint('views', __name__)

@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, Blueprint
+from flask import jsonify
 import joblib
 import numpy as np
 from sentence_transformers import SentenceTransformer
@@ -11,7 +11,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 MODEL_PATH = os.path.join(BASE_DIR, "models", "stacking_model.pkl")
 
 # Print the full path for debugging
-print(f"🔍 Looking for model at: {MODEL_PATH}")
+print(f"Looking for model at: {MODEL_PATH}")
 
 # Check if the file exists before loading
 if not os.path.exists(MODEL_PATH):

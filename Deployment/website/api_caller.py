@@ -1,7 +1,5 @@
 import requests
 import json
-import pandas as pd
-import os
 
 def call_api_entities(text):
     # API endpoint
